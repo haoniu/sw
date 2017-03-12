@@ -1,0 +1,7 @@
+hn_sw_backend:
+    path:     /admin
+    defaults: { _controller: HnSwBundle:Backend/Index:index }
+
+hn_sw_homepage:
+    path:     /
+    defaults: { _controller: HnSwBundle:Default:index }

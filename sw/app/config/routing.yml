@@ -1,3 +1,4 @@
-app:
-    resource: '@AppBundle/Controller/'
-    type: annotation
+hn_sw:
+    resource: "@HnSwBundle/Resources/config/routing.yml"
+    prefix:   /
+
