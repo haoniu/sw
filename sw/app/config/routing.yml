@@ -1,4 +1,7 @@
 hn_sw:
     resource: "@HnSwBundle/Resources/config/routing.yml"
-    prefix:   /
+    prefix:   /admin
 
+hn_sw_homepage:
+    path:     /
+    defaults: { _controller: HnSwBundle:Default:index }

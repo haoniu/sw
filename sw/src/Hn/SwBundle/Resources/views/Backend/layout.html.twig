@@ -17,7 +17,6 @@
 
     <link rel="icon" type="image/png" href="{{asset('SwAsset/Lib/AmazeUI')}}/i/favicon.png">
     <link rel="apple-touch-icon-precomposed" href="{{asset('SwAsset/Lib/AmazeUI')}}/i/app-icon72x72@2x.png">
-
     {% block pubcss %}
         <link rel="stylesheet" href="{{asset('SwAsset/Lib/AmazeUI')}}/css/amazeui.min.css" />
         <link rel="stylesheet" href="{{asset('SwAsset/Lib/AmazeUI')}}/css/amazeui.datatables.min.css" />
@@ -27,13 +26,19 @@
     {% block css %}
     {% endblock %}
 
+    {% block topjs %}
+    {% endblock %}
+
     {% block pubjs %}
         <script src="{{asset('SwAsset/Lib/AmazeUI')}}/js/echarts.min.js"></script>
         <script src="{{asset('SwAsset/Lib/AmazeUI')}}/js/jquery.min.js"></script>
     {% endblock %}
 </head>
 
-<body data-type="index">
+{% block dt %}
+<body data-type="widgets">
+{% endblock %}
+
 <script src="{{asset('SwAsset/Lib/AmazeUI')}}/js/theme.js"></script>
 <div class="am-g tpl-g">
     {% block header %}

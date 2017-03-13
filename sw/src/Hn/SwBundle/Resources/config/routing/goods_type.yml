@@ -1,0 +1,8 @@
+backend_goods_type_index:
+    path:     /index
+    defaults: { _controller: HnSwBundle:Backend/GoodsType:index }
+
+backend_goods_type_new:
+    path:     /new
+    defaults: { _controller: HnSwBundle:Backend/GoodsType:new }
+
