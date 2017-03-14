@@ -6,3 +6,10 @@ backend_goods_type_new:
     path:     /new
     defaults: { _controller: HnSwBundle:Backend/GoodsType:new }
 
+backend_goods_type_property:
+    path:     /property/index
+    defaults: { _controller: HnSwBundle:Backend/GoodsType:property }
+
+backend_goods_type_property_new:
+    path:     /property/new
+    defaults: { _controller: HnSwBundle:Backend/GoodsType:newProperty }

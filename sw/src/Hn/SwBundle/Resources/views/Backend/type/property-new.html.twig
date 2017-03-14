@@ -1,0 +1,72 @@
+{% extends '@HnSw/Backend/layout.html.twig' %}
+
+{% block content %}
+    <div class="tpl-content-wrapper">
+        <div class="row-content am-cf">
+            <div class="row">
+                <div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
+                    <div class="widget am-cf">
+                        <div class="widget-head am-cf">
+                            <div class="widget-title am-fl">新增属性</div>
+
+                        </div>
+                        <div class="widget-body am-fr">
+
+                            <form class="am-form tpl-form-line-form" method="post" action="{{ path('backend_goods_type_new') }}">
+                                <div class="am-form-group">
+                                    <label class="am-u-sm-3 am-form-label">属性名称</label>
+                                    <div class="am-u-sm-9">
+                                        <input type="text" class="tpl-form-input" placeholder="请输入标题文字">
+                                        {#{{ form_widget(form.typeName,{"attr":{'class':'tpl-form-input',"id":"user-name","placeholder":"请输入类型名称"}}) }}#}
+                                        <small></small>
+                                    </div>
+                                </div>
+
+                                <div class="am-form-group">
+                                    <label class="am-u-sm-3 am-form-label">属性值</label>
+                                    <div class="am-u-sm-9">
+                                        <input type="text"  style="margin-right: 1rem; float:left;border: 1px solid;border-radius: 1000px;text-align: center;width: 14%" >
+                                        <a class="am-fl hn-click-add" href="javascript:;">添加属性值</a>
+                                        <small></small>
+                                    </div>
+                                </div>
+
+                                <div class="hn-add-value">
+
+                                </div>
+
+                                <div class="am-form-group">
+                                    <label class="am-u-sm-3 am-form-label">排序</label>
+                                    <div class="am-u-sm-9">
+                                        <input type="text" class="tpl-form-input" placeholder="请输入排序数字" value="100">
+                                        {#{{ form_widget(form.sort,{"attr":{'class':'tpl-form-input',"id":"user-name","placeholder":"请输入排序数字","value":"100"}}) }}#}
+                                        <small></small>
+                                    </div>
+                                </div>
+
+
+
+                                <div class="am-form-group">
+                                    <div class="am-u-sm-9 am-u-sm-push-3">
+                                        <button type="submit" class="am-btn am-btn-primary tpl-btn-bg-color-success ">提交</button>
+                                    </div>
+                                </div>
+                                {#{{ form_widget(form._token) }}#}
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block js %}
+    <script>
+        $('.hn-goods-type').addClass('active');
+        $('.hn-goods-type-nav').css('display','block');
+        $('.hn-click-add').click(function () {
+            $(this).before("<input type='text'  style='margin-right: 1rem; float:left;border: 1px solid;border-radius: 1000px;text-align: center;width: 14%' >");
+        })
+    </script>
+{% endblock %}

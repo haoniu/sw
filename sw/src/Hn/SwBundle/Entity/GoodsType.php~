@@ -1,0 +1,52 @@
+<?php
+
+namespace Hn\SwBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * GoodsType
+ *
+ * @ORM\Table(name="goods_type")
+ * @ORM\Entity(repositoryClass="Hn\SwBundle\Repository\GoodsTypeRepository")
+ */
+class GoodsType
+{
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="type_name", type="string", length=255)
+     */
+    private $typeName;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="create_time", type="integer", nullable=true,options={"comment":"创建时间"})
+     */
+    private $createTime = '0';
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="update_time", type="integer", nullable=true,options={"comment":"更新时间"})
+     */
+    private $updateTime = '0';
+
+    /**
+     * @var integer
+     * @ORM\Column(name="sort", type="integer", nullable=true,options={"comment":"排序"})
+     */
+    private $sort = '100';
+
+
+}

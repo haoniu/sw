@@ -7,13 +7,23 @@
                 <div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
                     <div class="widget am-cf">
                         <div class="widget-head am-cf">
-                            <div class="widget-title  am-cf">类型列表</div>
+                            <div class="widget-title  am-cf">属性列表</div>
                         </div>
-                        <div class="widget-body  am-fr">
-                            <div class="am-u-sm-12 am-u-md-12 am-u-lg-3">
-                                <div class="am-input-group am-input-group-sm tpl-form-border-form cl-p">
-                                    <input type="text" class="am-form-field ">
-                                    <span class="am-input-group-btn"><button class="am-btn  am-btn-default am-btn-success tpl-table-list-field am-icon-search" type="button"></button></span>
+                        <div class="widget-body am-fr">
+                            <div class="am-u-sm-12 am-u-md-6 am-u-lg-6">
+                                <div class="am-form-group">
+                                    <div class="am-btn-toolbar">
+                                        <div class="am-btn-group am-btn-group-xs">
+                                            <button type="button" class="am-btn am-btn-default am-btn-success">
+                                                <span class="am-icon-plus"></span>
+                                                <a href="{{ path('backend_goods_type_property_new') }}" style="color: white">新增</a>
+                                            </button>
+                                            <button type="button" class="am-btn am-btn-default am-btn-secondary">
+                                                <span class="am-icon-arrow-left"></span>
+                                                <a href="{{ path('backend_goods_type_index') }}" style="color: white">返回</a>
+                                            </button>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="am-u-sm-12">
@@ -22,21 +32,21 @@
                                     <thead>
                                     <tr>
                                         <th>ID</th>
-                                        <th>类型名称</th>
-                                        <th>创建时间</th>
+                                        <th>属性名称</th>
+                                        <th>属性类别</th>
+                                        <th>属性值</th>
                                         <th class="am-text-center">操作</th>
                                     </tr>
                                     </thead>
 
                                     <tbody>
-                                    {% for type in gtype %}
                                     <tr class="gradeX">
-                                        <td>{{ type.id }}</td>
-                                        <td>{{ type.typeName }}</td>
-                                        <td>{{ type.createTime | date('Y-m-d H:i:s') }}</td>
+                                        <td>1</td>
+                                        <td>Amaze UI 模式窗口</td>
+                                        <td>属性</td>
+                                        <td>2016-09-26</td>
                                         <td class="am-text-center">
                                             <div class="tpl-table-black-operation">
-
                                                 <a href="javascript:;">
                                                     <i class="am-icon-pencil"></i> 编辑
                                                 </a>
@@ -44,15 +54,9 @@
                                                 <a href="javascript:;" class="tpl-table-black-operation-del">
                                                     <i class="am-icon-trash"></i> 删除
                                                 </a>
-
-                                                <a href="{{ path('backend_goods_type_property',{'tid' : type.id}) }}" class="am-btn am-btn-success">
-                                                    <i class="am-icon-bookmark-o"></i> 属性列表
-                                                </a>
-
                                             </div>
                                         </td>
                                     </tr>
-                                    {% endfor %}
                                     <!-- more data -->
                                     </tbody>
                                 </table>
@@ -84,7 +88,6 @@
 {% block js %}
     <script>
         $('.hn-goods-type').addClass('active');
-        $('.hn-goods-type-index').addClass('sub-active');
         $('.hn-goods-type-nav').css('display','block');
     </script>
 {% endblock %}
