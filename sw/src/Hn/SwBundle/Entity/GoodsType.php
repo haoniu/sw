@@ -48,7 +48,11 @@ class GoodsType
      */
     private $sort = '100';
 
-
+    /**
+     * @var integer
+     * @ORM\Column(name="state", type="integer", nullable=true,options={"comment":"状态"})
+     */
+    private $state = 1;
 
     /**
      * Get id
@@ -154,5 +158,29 @@ class GoodsType
     public function getSort()
     {
         return $this->sort;
+    }
+
+    /**
+     * Set state
+     *
+     * @param integer $state
+     *
+     * @return GoodsType
+     */
+    public function setState($state)
+    {
+        $this->state = $state;
+
+        return $this;
+    }
+
+    /**
+     * Get state
+     *
+     * @return integer
+     */
+    public function getState()
+    {
+        return $this->state;
     }
 }

@@ -13,7 +13,10 @@ class GoodsTypeAttrForm extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('attrName')->add('createTime')->add('updateTime');
+        $builder
+            ->add('attrName')
+            ->add('sort')
+        ;
     }
     
     /**

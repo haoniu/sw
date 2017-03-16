@@ -15,8 +15,30 @@ class BaseController extends Controller
         return $this->getDoctrine()->getManager();
     }
 
+    /**
+     * 打印普通的数组
+     * @param $data
+     */
+    public function p($data)
+    {
+        echo '<pre>';
+        print_r($data);
+        echo '</pre>';
+        exit();
+    }
+
     public function getGoodsTypeRepository()
     {
         return $this->em()->getRepository('HnSwBundle:GoodsType');
+    }
+
+    public function getGoodsTypeAttrRepository()
+    {
+        return $this->em()->getRepository('HnSwBundle:GoodsTypeAttr');
+    }
+
+    public function getGoodsAttrValueRepository()
+    {
+        return $this->em()->getRepository('HnSwBundle:GoodsAttrValue');
     }
 }

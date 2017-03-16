@@ -7,9 +7,9 @@ backend_goods_type_new:
     defaults: { _controller: HnSwBundle:Backend/GoodsType:new }
 
 backend_goods_type_property:
-    path:     /property/index
+    path:     /property/{tid}/index
     defaults: { _controller: HnSwBundle:Backend/GoodsType:property }
 
 backend_goods_type_property_new:
-    path:     /property/new
+    path:     /property/{tid}/new
     defaults: { _controller: HnSwBundle:Backend/GoodsType:newProperty }

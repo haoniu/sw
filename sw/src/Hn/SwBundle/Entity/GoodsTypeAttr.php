@@ -29,6 +29,13 @@ class GoodsTypeAttr
     private $attrName;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="value", type="string", length=255)
+     */
+    private $value;
+
+    /**
      * @var integer
      *
      * @ORM\Column(name="create_time", type="integer", nullable=true,options={"comment":"创建时间"})
@@ -41,6 +48,25 @@ class GoodsTypeAttr
      * @ORM\Column(name="update_time", type="integer", nullable=true,options={"comment":"更新时间"})
      */
     private $updateTime = '0';
+
+    /**
+     * @var integer
+     * @ORM\Column(name="sort", type="integer", nullable=true,options={"comment":"排序"})
+     */
+    private $sort = '100';
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="tid", type="integer", nullable=true,options={"comment":"类型id"})
+     */
+    private $tid = '0';
+
+    /**
+     * @var integer
+     * @ORM\Column(name="state", type="integer", nullable=true,options={"comment":"状态"})
+     */
+    private $state = 1;
 
     /**
      * Get id
@@ -122,5 +148,101 @@ class GoodsTypeAttr
     public function getUpdateTime()
     {
         return $this->updateTime;
+    }
+
+    /**
+     * Set sort
+     *
+     * @param integer $sort
+     *
+     * @return GoodsTypeAttr
+     */
+    public function setSort($sort)
+    {
+        $this->sort = $sort;
+
+        return $this;
+    }
+
+    /**
+     * Get sort
+     *
+     * @return integer
+     */
+    public function getSort()
+    {
+        return $this->sort;
+    }
+
+    /**
+     * Set tid
+     *
+     * @param integer $tid
+     *
+     * @return GoodsTypeAttr
+     */
+    public function setTid($tid)
+    {
+        $this->tid = $tid;
+
+        return $this;
+    }
+
+    /**
+     * Get tid
+     *
+     * @return integer
+     */
+    public function getTid()
+    {
+        return $this->tid;
+    }
+
+    /**
+     * Set value
+     *
+     * @param string $value
+     *
+     * @return GoodsTypeAttr
+     */
+    public function setValue($value)
+    {
+        $this->value = $value;
+
+        return $this;
+    }
+
+    /**
+     * Get value
+     *
+     * @return string
+     */
+    public function getValue()
+    {
+        return $this->value;
+    }
+
+    /**
+     * Set state
+     *
+     * @param integer $state
+     *
+     * @return GoodsTypeAttr
+     */
+    public function setState($state)
+    {
+        $this->state = $state;
+
+        return $this;
+    }
+
+    /**
+     * Get state
+     *
+     * @return integer
+     */
+    public function getState()
+    {
+        return $this->state;
     }
 }

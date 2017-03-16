@@ -12,12 +12,12 @@
                         </div>
                         <div class="widget-body am-fr">
 
-                            <form class="am-form tpl-form-line-form" method="post" action="{{ path('backend_goods_type_new') }}">
+                            <form class="am-form tpl-form-line-form" method="post" action="{{ path('backend_goods_type_property_new',{'tid' : tid}) }}">
                                 <div class="am-form-group">
                                     <label class="am-u-sm-3 am-form-label">属性名称</label>
                                     <div class="am-u-sm-9">
-                                        <input type="text" class="tpl-form-input" placeholder="请输入标题文字">
-                                        {#{{ form_widget(form.typeName,{"attr":{'class':'tpl-form-input',"id":"user-name","placeholder":"请输入类型名称"}}) }}#}
+                                        {#<input type="text" class="tpl-form-input" placeholder="请输入标题文字">#}
+                                        {{ form_widget(form.attrName,{"attr":{'class':'tpl-form-input',"placeholder":"请输入类型名称"}}) }}
                                         <small></small>
                                     </div>
                                 </div>
@@ -25,21 +25,17 @@
                                 <div class="am-form-group">
                                     <label class="am-u-sm-3 am-form-label">属性值</label>
                                     <div class="am-u-sm-9">
-                                        <input type="text"  style="margin-right: 1rem; float:left;border: 1px solid;border-radius: 1000px;text-align: center;width: 14%" >
+                                        <input type="text" name="attrValue[]" style="margin-right: 1rem; float:left;border: 1px solid;border-radius: 1000px;text-align: center;width: 14%" >
                                         <a class="am-fl hn-click-add" href="javascript:;">添加属性值</a>
                                         <small></small>
                                     </div>
                                 </div>
 
-                                <div class="hn-add-value">
-
-                                </div>
-
                                 <div class="am-form-group">
                                     <label class="am-u-sm-3 am-form-label">排序</label>
                                     <div class="am-u-sm-9">
-                                        <input type="text" class="tpl-form-input" placeholder="请输入排序数字" value="100">
-                                        {#{{ form_widget(form.sort,{"attr":{'class':'tpl-form-input',"id":"user-name","placeholder":"请输入排序数字","value":"100"}}) }}#}
+                                        {#<input type="text" class="tpl-form-input" placeholder="请输入排序数字" value="100">#}
+                                        {{ form_widget(form.sort,{"attr":{'class':'tpl-form-input',"placeholder":"请输入排序数字","value":"100"}}) }}
                                         <small></small>
                                     </div>
                                 </div>
@@ -51,7 +47,7 @@
                                         <button type="submit" class="am-btn am-btn-primary tpl-btn-bg-color-success ">提交</button>
                                     </div>
                                 </div>
-                                {#{{ form_widget(form._token) }}#}
+                                {{ form_widget(form._token) }}
                             </form>
                         </div>
                     </div>
@@ -66,7 +62,7 @@
         $('.hn-goods-type').addClass('active');
         $('.hn-goods-type-nav').css('display','block');
         $('.hn-click-add').click(function () {
-            $(this).before("<input type='text'  style='margin-right: 1rem; float:left;border: 1px solid;border-radius: 1000px;text-align: center;width: 14%' >");
+            $(this).before("<input type='text' name='attrValue[]' style='margin-right: 1rem; float:left;border: 1px solid;border-radius: 1000px;text-align: center;width: 14%' >");
         })
     </script>
 {% endblock %}

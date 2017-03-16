@@ -43,6 +43,19 @@ class GoodsAttrValue
     private $updateTime = '0';
 
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="taid", type="integer", nullable=true,options={"comment":"属性id"})
+     */
+    private $taid = '0';
+
+    /**
+     * @var integer
+     * @ORM\Column(name="state", type="integer", nullable=true,options={"comment":"状态"})
+     */
+    private $state = 1;
+
+    /**
      * Get id
      *
      * @return integer
@@ -122,5 +135,53 @@ class GoodsAttrValue
     public function getUpdateTime()
     {
         return $this->updateTime;
+    }
+
+    /**
+     * Set taid
+     *
+     * @param integer $taid
+     *
+     * @return GoodsAttrValue
+     */
+    public function setTaid($taid)
+    {
+        $this->taid = $taid;
+
+        return $this;
+    }
+
+    /**
+     * Get taid
+     *
+     * @return integer
+     */
+    public function getTaid()
+    {
+        return $this->taid;
+    }
+
+    /**
+     * Set state
+     *
+     * @param integer $state
+     *
+     * @return GoodsAttrValue
+     */
+    public function setState($state)
+    {
+        $this->state = $state;
+
+        return $this;
+    }
+
+    /**
+     * Get state
+     *
+     * @return integer
+     */
+    public function getState()
+    {
+        return $this->state;
     }
 }

@@ -1,6 +1,7 @@
 <?php
 
 namespace Hn\SwBundle\Repository;
+use Hn\SwBundle\Entity\GoodsAttrValue;
 
 /**
  * GoodsAttrValueRepository
@@ -10,4 +11,19 @@ namespace Hn\SwBundle\Repository;
  */
 class GoodsAttrValueRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function getTaidAttrValue($taid)
+    {
+        $query = $this
+            ->_em
+            ->createQueryBuilder('g')
+            ->from(GoodsAttrValue::class,'g')
+            ->select('g.value')
+            ->where('g.taid = '.$taid)
+            ->getQuery()
+        ;
+
+        $data = $query->getArrayResult();
+
+        return $data;
+    }
 }

@@ -1,6 +1,7 @@
 <?php
 
 namespace Hn\SwBundle\Repository;
+use Hn\SwBundle\Entity\GoodsTypeAttr;
 
 /**
  * GoodsTypeAttrRepository
@@ -10,4 +11,19 @@ namespace Hn\SwBundle\Repository;
  */
 class GoodsTypeAttrRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function getTidAttr($tid)
+    {
+        $query = $this
+            ->_em
+            ->createQueryBuilder('g')
+            ->from(GoodsTypeAttr::class,'g')
+            ->select('g')
+            ->where('g.tid = '.$tid)
+            ->getQuery()
+        ;
+
+        $data = $query->getArrayResult();
+
+        return $data;
+    }
 }
