@@ -22,7 +22,7 @@ class BaseController extends Controller
     public function p($data)
     {
         echo '<pre>';
-        print_r($data);
+        dump($data);
         echo '</pre>';
         exit();
     }
@@ -40,5 +40,10 @@ class BaseController extends Controller
     public function getGoodsAttrValueRepository()
     {
         return $this->em()->getRepository('HnSwBundle:GoodsAttrValue');
+    }
+
+    public function getGoodsCategoryRepository()
+    {
+        return $this->em()->getRepository('HnSwBundle:GoodsCategory');
     }
 }

@@ -15,6 +15,7 @@ class GoodsTypeController extends BaseController
     public function indexAction()
     {
         $allData = $this->getGoodsTypeRepository()->findAll();
+
         return $this->render('HnSwBundle:Backend/type:index.html.twig',array(
             'gtype' => $allData
         ));
