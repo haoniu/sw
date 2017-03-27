@@ -14,7 +14,7 @@ class GoodsCategoryController extends BaseController
     {
         $arrCate = $this->getGoodsCategoryRepository()->childrenHierarchy();
 //        $this->p($arrCate);
-        return $this->render('HnSwBundle:Backend/Category:index.html.twig',array(
+        return $this->render('HnSwBundle:Backend/category:index.html.twig',array(
             'arrCate' => $arrCate
         ));
     }
@@ -32,7 +32,7 @@ class GoodsCategoryController extends BaseController
             return $this->redirectToRoute('backend_goods_category_index');
         }
 
-        return $this->render('HnSwBundle:Backend/Category:new.html.twig',array(
+        return $this->render('HnSwBundle:Backend/category:new.html.twig',array(
             'form' => $form->createView()
         ));
     }
@@ -53,7 +53,7 @@ class GoodsCategoryController extends BaseController
             return $this->redirectToRoute('backend_goods_category_index');
         }
 
-        return $this->render('HnSwBundle:Backend/Category:new-son-cate.html.twig',array(
+        return $this->render('HnSwBundle:Backend/category:new-son-cate.html.twig',array(
             'form' => $form->createView(),
             'pid' => $pid
         ));

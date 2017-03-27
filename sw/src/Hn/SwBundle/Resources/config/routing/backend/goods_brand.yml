@@ -1,0 +1,7 @@
+backend_goods_brand_index:
+    path:     /index
+    defaults: { _controller: HnSwBundle:Backend/GoodsBrand:index }
+
+backend_goods_brand_new:
+    path:     /new
+    defaults: { _controller: HnSwBundle:Backend/GoodsBrand:new }

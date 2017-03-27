@@ -3,19 +3,19 @@ hn_sw_backend:
     defaults: { _controller: HnSwBundle:Backend/Index:index }
 
 backend_goods_type:
-    resource: "@HnSwBundle/Resources/config/routing/goods_type.yml"
+    resource: "@HnSwBundle/Resources/config/routing/backend/goods_type.yml"
     prefix:   /goods/type
 
 backend_goods_category:
-    resource: "@HnSwBundle/Resources/config/routing/goods_category.yml"
+    resource: "@HnSwBundle/Resources/config/routing/backend/goods_category.yml"
     prefix:   /goods/category
 
 backend_goods_brand:
-    resource: "@HnSwBundle/Resources/config/routing/goods_brand.yml"
+    resource: "@HnSwBundle/Resources/config/routing/backend/goods_brand.yml"
     prefix:   /goods/brand
 
 backend_goods_detail:
-    resource: "@HnSwBundle/Resources/config/routing/goods_detail.yml"
+    resource: "@HnSwBundle/Resources/config/routing/backend/goods_detail.yml"
     prefix:   /goods/detail
 
 
