@@ -5,3 +5,7 @@ hn_sw:
 hn_sw_homepage:
     path:     /
     defaults: { _controller: HnSwBundle:Default:index }
+
+
+_liip_imagine:
+    resource: "@LiipImagineBundle/Resources/config/routing.xml"
