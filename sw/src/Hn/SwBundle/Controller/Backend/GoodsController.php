@@ -2,12 +2,17 @@
 
 namespace Hn\SwBundle\Controller\Backend;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Hn\SwBundle\Controller\BaseController;
 
-class GoodsController extends Controller
+class GoodsController extends BaseController
 {
-    public function indexAction($name)
+    public function indexAction()
     {
-        return $this->render('', array('name' => $name));
+        return $this->render('HnSwBundle:Backend/goods:new.html.twig');
+    }
+
+    public function newAction()
+    {
+        return $this->render('HnSwBundle:Backend/goods:new.html.twig');
     }
 }
