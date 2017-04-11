@@ -9,3 +9,12 @@ hn_sw_homepage:
 
 _liip_imagine:
     resource: "@LiipImagineBundle/Resources/config/routing.xml"
+
+
+hn_sw_pro:
+    path:     /procreate
+    defaults: { _controller: HnSwBundle:Default:create }
+
+hn_sw_proshow:
+    path:     /proshow
+    defaults: { _controller: HnSwBundle:Default:show }
