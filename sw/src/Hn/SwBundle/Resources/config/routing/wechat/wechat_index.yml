@@ -2,3 +2,6 @@ hn_sw_wechat_index:
     path:     /
     defaults: { _controller: HnSwBundle:WeChat/Index:index }
 
+hn_sw_wechat_check:
+    path:     /check
+    defaults: { _controller: HnSwBundle:WeChat/Index:check }
