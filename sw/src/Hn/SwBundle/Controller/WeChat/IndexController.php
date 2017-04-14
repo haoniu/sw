@@ -5,6 +5,7 @@ namespace Hn\SwBundle\Controller\WeChat;
 use Hn\SwBundle\Controller\WeChat\WxBaseController as TopController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use WxPayUnifiedOrder;
 
 class IndexController extends TopController
 {
@@ -60,7 +61,27 @@ class IndexController extends TopController
         $openId = $this->getOpenId();
 
         //统一下单
+        $input = new WxPayUnifiedOrder();
+        $input->SetBody("test");
+        $input->SetAttach("test");
+        $input->SetOut_trade_no($this->MCHID.date("YmdHis"));
+        $input->SetTotal_fee("1");
+        $input->SetTime_start(date("YmdHis"));
+        $input->SetTime_expire(date("YmdHis", time() + 600));
+        $input->SetGoods_tag("test");
+        $input->SetNotify_url("http://paysdk.weixin.qq.com/example/notify.php");
+        $input->SetTrade_type("JSAPI");
+        $input->SetOpenid($openId);
 
-        return $this->render('HnSwBundle:WeChat/index:pay.html.twig');
+        $order = $this->unifiedOrder($input);
+
+        $jsApiParameters = $this->GetJsApiParameters($order);
+
+        //获取共享收货地址js函数参数
+        //$editAddress = $this->GetEditAddressParameters();
+
+        return $this->render('HnSwBundle:WeChat/index:pay.html.twig',array(
+            'jsApiParameters' => $jsApiParameters
+        ));
     }
 }
