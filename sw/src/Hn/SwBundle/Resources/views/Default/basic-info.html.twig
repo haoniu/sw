@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+		<title>首页</title>
+	</head>
+	<link rel="stylesheet" type="text/css" href="{{ asset('SwAsset/SwBundle/Frontend/user_per') }}/css/weui.min.css"/>
+	<script src="{{ asset('SwAsset/SwBundle/Frontend/user_per') }}/js/jquery-1.7.2.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="{{ asset('SwAsset/SwBundle/Frontend/user_per') }}/js/weui.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="{{ asset('SwAsset/SwBundle/Frontend/user_per') }}/js/weui-1.0.js" type="text/javascript" charset="utf-8"></script>
+	
+	<link rel="stylesheet" type="text/css" href="{{ asset('SwAsset/SwBundle/Frontend/user_per') }}/css/index.css"/>
+    <link rel="stylesheet" href="https://res.wx.qq.com/open/libs/weui/0.3.0/weui.css" />
+	<body>
+		<div class="basic-info">
+			<form action="{{ path('hn_sw_pro') }}" method="post">
+			<div class="weui-cell hight">
+				<div class="weui-cell__hd">
+					<label class="weui-label label">名称：</label>
+				</div>
+				<div class="weui-cell__bd">
+					{#<input type="text" class="weui-input" placeholder="" name="sw_name">#}
+                    {{ form_widget(form.name) }}
+				</div>
+			</div>
+
+			<div class="weui-cell hight">
+				<div class="weui-cell__hd">
+					<label class="weui-label">价格：</label>
+				</div>
+				<div class="weui-cell__bd">
+                    {{ form_widget(form.price) }}
+
+				</div>
+			</div>
+                {{ form_widget(form._token) }}
+				<input type="submit" value="提交">
+			</form>
+		</div>
+	</body>
+	<script src="js/ahn-join.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+  		$(function(){
+  			$("#sfz-show li").click(function(){
+  				$("#sfz-show li").remove();
+  			})
+  		})
+  	</script>
+</html>

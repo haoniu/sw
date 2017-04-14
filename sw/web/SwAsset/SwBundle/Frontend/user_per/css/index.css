@@ -1,0 +1,106 @@
+/*类别begin*/
+.collection{
+	width: 100%;
+	height: auto;
+}
+.collection .head{
+	height: 40px;
+	line-height: 40px;
+	overflow: hidden;	
+	background: #ffa200;
+}
+.collection  .head  .icon{
+	display: block;
+	width: 10%;
+	height: 40px;
+	background: url(../img/info-icon.png)no-repeat;
+	background-position: -145px -30px;
+	background-size: 500px 800px;
+}
+.collection  .head .msg{
+	width: 80%;
+	color: #FFFFFF;
+	font-size: 1em;
+}
+.collection  .head .close{
+	display: block;
+	width: 10%;
+	height: 40px;
+	background: url(../img/info-icon.png)no-repeat;
+	background-position: -234px -30px;
+	background-size: 500px 800px;
+}
+.collection .category{
+	width: 100%;
+}
+.collection .category ul li{
+	float: left;
+	width: 32%;
+	height: 130px;
+}
+.collection .category ul{
+	margin-left: 5%;
+	margin-top: 20px;
+}
+.collection .category li i{
+	width: 100%;
+	height: 100px;
+	display: block;
+	background: url(../img/info-icon.png)no-repeat;
+	background-size: 500px 900px;
+}
+.collection .category li .basic{
+	background-position: -60px -174px;
+}
+.collection .category li .plant{
+	background-position: -206px -174px;
+}
+.collection .category li .assets{
+	background-position: -352px -174px;
+}
+.collection .category li .loan{
+	background-position: -50px -332px;
+}
+.collection .category li .additional{
+	background-position: -206px -332px;
+}
+
+.collection .category li span{
+	font-size: 1em;
+	margin-left: 20%;
+	color: #333333;
+}
+/*类别结束end*/
+/*基本信息begin*/
+.basic-info{
+	width: 100%;
+}
+.basic-info .hight{
+	height: 40px;
+    line-height: 40px;
+}
+.basic-info  .adds-submit{
+	color: #fff;
+    padding: 10px 0px;
+    width: 100%;
+    text-align: center;
+    font-size: 1rem;
+    background: #FFA200;
+    display: block;
+    border-radius: 10px;
+}
+.basic-info .text{
+	color: #333333;
+	font-size: 1em;
+    margin-bottom: 0.3em;
+    margin-top: 0.77em;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+..basic-info .fl{float: left;}
+..basic-info .ml27{margin-left: 27%;}
+..basic-info .flwd{width: 40%;}
+..basic-info .bg{background: #F8F8F8;}
+..basic-info .sizecl{color: #04BE02;}
+..basic-info .btn{width: 100%;}
+/*基本信息end*/

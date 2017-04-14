@@ -1,25 +1,10 @@
-hn_sw_backend:
-    path:     /
-    defaults: { _controller: HnSwBundle:Backend/Index:index }
+hn_sw_backend_all:
+    resource: "@HnSwBundle/Resources/config/routing/backend/back_all.yml"
+    prefix:   /admin
 
-backend_goods_type:
-    resource: "@HnSwBundle/Resources/config/routing/backend/goods_type.yml"
-    prefix:   /goods/type
-
-backend_goods_category:
-    resource: "@HnSwBundle/Resources/config/routing/backend/goods_category.yml"
-    prefix:   /goods/category
-
-backend_goods_brand:
-    resource: "@HnSwBundle/Resources/config/routing/backend/goods_brand.yml"
-    prefix:   /goods/brand
-
-backend_goods_detail:
-    resource: "@HnSwBundle/Resources/config/routing/backend/goods_detail.yml"
-    prefix:   /goods/detail
-
-
-
+hn_sw_wechat_all:
+    resource: "@HnSwBundle/Resources/config/routing/wechat/wechat_all.yml"
+    prefix:   /wx
 
 
 

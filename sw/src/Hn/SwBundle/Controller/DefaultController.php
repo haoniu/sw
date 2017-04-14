@@ -3,8 +3,10 @@
 namespace Hn\SwBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Hn\SwBundle\Document\Product;
+use Hn\SwBundle\Form\ProductType;
 
 class DefaultController extends Controller
 {
@@ -13,17 +15,23 @@ class DefaultController extends Controller
         return $this->render('HnSwBundle:Default:index.html.twig');
     }
 
-    public function createAction()
+    public function createAction(Request $request)
     {
         $product = new Product();
-        $product->setName('A Foo Bar2');
-        $product->setPrice('29.99');
+        $form = $this->createForm(ProductType::class,$product);
+        $form->handleRequest($request);
 
-        $dm = $this->get('doctrine_mongodb')->getManager();
-        $dm->persist($product);
-        $dm->flush();
+        if($form->isSubmitted() && $form->isValid()){
 
-        return new Response('Created product id '.$product->getId());
+            $dm = $this->get('doctrine_mongodb')->getManager();
+            $dm->persist($product);
+            $dm->flush();
+            return $this->redirectToRoute('hn_sw_proshow');
+        }
+
+        return $this->render('HnSwBundle:Default:basic-info.html.twig',array(
+            'form' => $form->createView(),
+        ));
     }
 
     public function showAction()

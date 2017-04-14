@@ -1,0 +1,4 @@
+hn_sw_wechat:
+    resource: "@HnSwBundle/Resources/config/routing/wechat/wechat_index.yml"
+    prefix:   /
+

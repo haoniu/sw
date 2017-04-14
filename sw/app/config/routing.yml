@@ -1,6 +1,6 @@
 hn_sw:
     resource: "@HnSwBundle/Resources/config/routing.yml"
-    prefix:   /admin
+    prefix:   /
 
 hn_sw_homepage:
     path:     /
