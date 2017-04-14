@@ -3,6 +3,7 @@
 namespace Hn\SwBundle\Controller\WeChat;
 
 use Hn\SwBundle\Controller\BaseController;
+use Symfony\Component\HttpFoundation\Response;
 
 class WxBaseController extends BaseController
 {
@@ -97,7 +98,7 @@ class WxBaseController extends BaseController
     //微信接口整合验证进行绑定
     public function valid() {
         if ( ! isset( $_GET["echostr"] ) || ! isset( $_GET["signature"] ) || ! isset( $_GET["timestamp"] ) || ! isset( $_GET["nonce"] ) ) {
-            return false;
+            return 'false';
         }
         $echoStr   = $_GET["echostr"];
         $signature = $_GET["signature"];
@@ -110,11 +111,10 @@ class WxBaseController extends BaseController
         $tmpStr = sha1( $tmpStr );
 
         if ( $tmpStr == $signature ) {
-            //echo $echoStr;
-            return true;
+            echo $echoStr;
             exit;
         } else {
-            return false;
+            return 'false';
         }
     }
 

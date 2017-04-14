@@ -16,8 +16,7 @@ class IndexController extends TopController
 
     public function checkAction()
     {
-        $this->valid();
-
-        return new Response();
+        $data = $this->valid();
+        return new Response($data);
     }
 }
