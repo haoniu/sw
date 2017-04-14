@@ -5,7 +5,7 @@ namespace Hn\SwBundle\Controller\WeChat;
 use Hn\SwBundle\Controller\WeChat\WxBaseController as TopController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use WxPayUnifiedOrder;
+use Hn\SwBundle\Controller\WeChat\WxPayUnifiedOrder;
 
 class IndexController extends TopController
 {

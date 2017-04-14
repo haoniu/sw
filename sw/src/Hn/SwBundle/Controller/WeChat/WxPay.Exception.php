@@ -1,4 +1,5 @@
 <?php
+namespace Hn\SwBundle\Controller\WeChat;
 /**
  * 
  * 微信支付API异常类
