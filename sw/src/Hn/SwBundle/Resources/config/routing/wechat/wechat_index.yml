@@ -5,3 +5,16 @@ hn_sw_wechat_index:
 hn_sw_wechat_check:
     path:     /check
     defaults: { _controller: HnSwBundle:WeChat/Index:check }
+
+hn_sw_wechat_menu:
+    path:     /menu
+    defaults: { _controller: HnSwBundle:WeChat/Index:createWxMenu }
+
+
+hn_sw_wechat_pay:
+    path:     /pay
+    defaults: { _controller: HnSwBundle:WeChat/Index:pay }
+
+
+
+
