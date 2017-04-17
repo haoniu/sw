@@ -6,6 +6,7 @@ use Hn\SwBundle\Controller\WeChat\WxBaseController as TopController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Hn\SwBundle\Controller\WeChat\WxPayUnifiedOrder;
+use Symfony\Component\Cache\Adapter\FilesystemAdapter;
 
 class IndexController extends TopController
 {
@@ -71,8 +72,14 @@ class IndexController extends TopController
         $input->SetGoods_tag("test");
         $input->SetNotify_url("http://paysdk.weixin.qq.com/example/notify.php");
         $input->SetOpenid($openId);
+        $input->SetTrade_type('JSAPI');
+        $input->SetAppid($this->appid);
+        $input->SetMch_id($this->MCHID);
+        $input->SetNonce_str($this->getRandStr(16));
+        $xml = $this->unifiedOrder($input);
 
-        $order = $this->unifiedOrder($input);
+        $res = $this->curl( "https://api.mch.weixin.qq.com/pay/unifiedorder", $xml );
+        $order = $this->xmlToArray($res);
 
         var_dump($order);
 
@@ -83,6 +90,21 @@ class IndexController extends TopController
 
         return $this->render('HnSwBundle:WeChat/index:pay.html.twig',array(
             'jsApiParameters' => 1
+        ));
+    }
+
+
+    public function recordAction()
+    {
+
+        $url = 'http://dashan.haoniube.com/wx/record';
+
+        $jsData = $this->getJsSign($url);
+
+
+
+        return $this->render('HnSwBundle:WeChat/index:record.html.twig',array(
+            'jsData' => $jsData
         ));
     }
 }

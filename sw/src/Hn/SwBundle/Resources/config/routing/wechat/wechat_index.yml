@@ -15,6 +15,8 @@ hn_sw_wechat_pay:
     path:     /pay
     defaults: { _controller: HnSwBundle:WeChat/Index:pay }
 
-
+hn_sw_wechat_record:
+    path:     /record
+    defaults: { _controller: HnSwBundle:WeChat/Index:record }
 
 

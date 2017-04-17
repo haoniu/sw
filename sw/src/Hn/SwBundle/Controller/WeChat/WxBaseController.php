@@ -4,6 +4,7 @@ namespace Hn\SwBundle\Controller\WeChat;
 
 use Hn\SwBundle\Controller\BaseController;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Cache\Adapter\FilesystemAdapter;
 use WxPayResults;
 use WxPayJsApiPay;
 use WxPayException;
@@ -146,6 +147,8 @@ class WxBaseController extends BaseController
     protected $appsecret = '9661b4bfb77880d71b49f6a26fab8155';
     //access_token
     protected $access_token;
+
+    protected $js_ticket;
     //微信服务器发来的数据
     protected $message;
     //API 根地址
@@ -153,7 +156,8 @@ class WxBaseController extends BaseController
 
 
     //产生随机字符串，不长于32位
-    public function getRandStr( $length = 32 ) {
+    public function getRandStr( $length = 32 )
+    {
         $chars = "abcdefghijklmnopqrstuvwxyz0123456789";
         $str   = "";
         for ( $i = 0; $i < $length; $i ++ ) {
@@ -164,7 +168,8 @@ class WxBaseController extends BaseController
     }
 
     //启动组件
-    public function bootstrap() {
+    public function bootstrap()
+    {
 
         $this->access_token = $this->getAccessToken();
         //处理 微信服务器 发来的数据
@@ -179,7 +184,8 @@ class WxBaseController extends BaseController
      *
      * @return string
      */
-    public function curl( $url, $fields = [ ] ) {
+    public function curl( $url, $fields = [ ] )
+    {
         $ch = curl_init();
         //设置我们请求的地址
         curl_setopt( $ch, CURLOPT_URL, $url );
@@ -204,20 +210,88 @@ class WxBaseController extends BaseController
 
     }
 
-    public function getAccessToken( $force = false ) {
+    /**
+     * 获取access_token
+     * 文档地址：https://mp.weixin.qq.com/wiki/15/54ce45d8d30b6bf6758f68d2e95bc627.html
+     * @return bool|mixed
+     */
+    public function getAccessToken()
+    {
+        $cache = new FilesystemAdapter();
 
-        $url  = $this->apiUrl . '/cgi-bin/token?grant_type=client_credential&appid=' . $this->appid
-            . '&secret=' . $this->appsecret;
-        $data = $this->curl( $url );
-        $data = json_decode( $data, true );
-        //获取失败
-        if ( isset( $data['errcode'] ) ) {
-            return false;
+        // 取出缓存元素
+        $wxToken = $cache->getItem('wx.accessToken');
+        if (!$wxToken->isHit()) {
+            //元素在缓存中不存在
+            $url  = $this->apiUrl . '/cgi-bin/token?grant_type=client_credential&appid=' . $this->appid
+                . '&secret=' . $this->appsecret;
+            $data = $this->curl( $url );
+            $data = json_decode( $data, true );
+            //获取失败
+            if ( isset( $data['errcode'] ) ) {
+                return false;
+            }
+            $wxToken->set($data['access_token']);
+            $wxToken->expiresAfter(3600);
+            $cache->save($wxToken);
+            $token = $data['access_token'];
+        }else{
+            $token = $wxToken->get();
         }
 
         //获取access_token成功
-        return $this->access_token = $data['access_token'];
+        return $this->access_token = $token;
     }
+
+    /**
+     * 获得jsapi_ticket
+     * 文档地址：https://mp.weixin.qq.com/wiki/7/aaa137b55fb2e0456bf8dd9148dd613f.html#.E9.99.84.E5.BD.951-JS-SDK.E4.BD.BF.E7.94.A8.E6.9D.83.E9.99.90.E7.AD.BE.E5.90.8D.E7.AE.97.E6.B3.95
+     * @return mixed|string
+     */
+    public function getJsTicket()
+    {
+        $cache = new FilesystemAdapter();
+
+        // 取出缓存元素
+        $wxTicket = $cache->getItem('wx.jsTicket');
+        if (!$wxTicket->isHit()) {
+            //元素在缓存中不存在，请求的api地址是：https://api.weixin.qq.com/cgi-bin/ticket/getticket?access_token=ACCESS_TOKEN&type=jsapi
+            $url  = $this->apiUrl . '/cgi-bin/ticket/getticket?access_token=' . $this->getAccessToken() . '&type=jsapi';
+
+            $data = $this->curl( $url );
+            $data = json_decode( $data, true );
+            //获取失败
+            if ( $data['errcode'] != 0 ) {
+                return '失败';
+            }
+            $wxTicket->set($data['ticket']);
+            $wxTicket->expiresAfter(3600);  //设置缓存时间
+            $cache->save($wxTicket);
+            $ticket = $data['ticket'];
+        }else{
+            $ticket = $wxTicket->get();
+        }
+
+        return $this->js_ticket = $ticket;
+    }
+
+    public function getTicketSign($randstr,$time,$url)
+    {
+        $ticket = $this->getJsTicket();
+        $string1 = 'jsapi_ticket='.$ticket.'&noncestr='.$randstr.'&timestamp='.$time.'&url='.$url;
+        return sha1($string1);
+    }
+
+    public function getJsSign($url)
+    {
+        $jsData = array();
+        $jsData['appid'] = $this->appid;
+        $jsData['timestamp'] = time();
+        $jsData['nonceStr'] = $this->getRandStr(12);
+        $jsData['signature'] = $this->getTicketSign($jsData['nonceStr'],$jsData['timestamp'],$url);
+        return $jsData;
+    }
+
 
 
     //解析微信发来的POST/XML数据
@@ -442,11 +516,11 @@ class WxBaseController extends BaseController
 //            $inputObj->SetNotify_url(WxPayConfig::NOTIFY_URL);//异步通知url
 //        }
 
-        $inputObj->SetAppid('wx76728b0230778ea4');//公众账号ID
-        $inputObj->SetMch_id(WxBaseController::getMCHID());//商户号
+        //$inputObj->SetAppid('wx76728b0230778ea4');//公众账号ID
+        //$inputObj->SetMch_id(WxBaseController::getMCHID());//商户号
         $inputObj->SetSpbill_create_ip($_SERVER['REMOTE_ADDR']);//终端ip
         //$inputObj->SetSpbill_create_ip("1.1.1.1");
-        $inputObj->SetNonce_str(WxBaseController::getRandStr(16));//随机字符串
+        //$inputObj->SetNonce_str(WxBaseController::getRandStr(16));//随机字符串
 
         //签名
         $inputObj->SetSign();
@@ -457,9 +531,9 @@ class WxBaseController extends BaseController
         //$result = WxPayResults::Init($response);
         //self::reportCostTime($url, $startTimeStamp, $result);//上报请求花费时间
 
-        $res = WxBaseController::curl( "https://api.mch.weixin.qq.com/pay/unifiedorder", $xml );
+        //$res = WxBaseController::curl( "https://api.mch.weixin.qq.com/pay/unifiedorder", $xml );
 
-        return WxBaseController::xmlToArray( $res );
+        return WxBaseController::xmlToArray( $xml );
     }
 
 

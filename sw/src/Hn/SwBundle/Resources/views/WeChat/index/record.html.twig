@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+    <script>
+        wx.config({
+            debug: true,
+            appId: '{{ jsData['appid'] }}',
+            timestamp: '{{ jsData['timestamp'] }}',
+            nonceStr: '{{ jsData['nonceStr'] }}',
+            signature: '{{ jsData['signature'] }}',
+            jsApiList: [
+                'checkJsApi',
+                'startRecord',
+                'stopRecord',
+                'onVoiceRecordEnd',
+                'playVoice',
+                'pauseVoice',
+                'stopVoice',
+                'onVoicePlayEnd',
+                'uploadVoice',
+                'downloadVoice',
+                'getNetworkType'
+            ]
+        });
+        wx.ready(function () {
+            var record = {
+                localId: '',
+                serverId: ''
+            };
+
+            wx.getNetworkType({
+                success: function (res) {
+                    var networkType = res.networkType; // 返回网络类型2g，3g，4g，wifi
+                    jQuery(function() {
+                        $('#networkType').html(networkType);
+                    });
+                }
+            });
+
+            document.querySelector('#record').onclick = function () {
+                $("#record h2").html('录音中...');
+                wx.startRecord();
+            };
+
+            document.querySelector('#stoprecord').onclick = function() {
+                wx.stopRecord({
+                    success: function (res) {
+                        record.localId = res.localId;
+                        $("#record h2").html('开始录音');
+                    }
+                });
+            };
+
+            wx.onVoiceRecordEnd({
+                complete: function (res) {
+                    record.localId = res.localId;
+                    $("#record h2").html('开始录音');
+                }
+            });
+
+            wx.onVoicePlayEnd({
+                success: function (res) {
+                    //record.localId = res.localId; // 返回音频的本地ID
+                    alert('播放完毕');
+                }
+            });
+
+            document.querySelector('#playrecord').onclick = function() {
+                if(record.localId == '') {
+                    alert('你还没录音');
+                    return;
+                }
+                wx.playVoice({
+                    localId: record.localId
+                });
+            };
+
+            document.querySelector('#uploadrecord').onclick = function() {
+                if(record.localId == '') {
+                    alert('你还没录音localId');
+                    return;
+                }
+                wx.uploadVoice({
+                    localId: record.localId,
+                    isShowProgressTips: 1,
+                    success: function (res) {
+                        record.serverId = res.serverId;
+                        $.getJSON('http://www.demo.com/tp/home/index/sendrecord',{openid:'oHdUGj7hZfJfr4ILMB5rgctpNrOw', media_id:record.serverId}, function(data) {
+                            if(data)
+                                alert('发送成功');
+                        });
+                    }
+                });
+            };
+
+            document.querySelector('#downloadrecord').onclick = function() {
+                if(record.serverId == '') {
+                    alert('你还没上传录音');
+                    return;
+                }
+                wx.downloadVoice({
+                    serverId: record.serverId,
+                    isShowProgressTips: 1,
+                    success: function (res) {
+                        record.localId = res.localId;
+                        alert(record.localId);
+                    }
+                });
+            };
+        });
+
+        wx.error(function(res){
+            var str = res.errMsg;
+            var reg = /invalid signature$/;
+            var r = str.match(reg);
+            if(r !== null) {
+                jQuery(function(){
+                    $.getJSON('http://www.demo.com/tp/home/index/ticket', function(data) {
+                        if(data) {
+                            alert('ticket update');
+                            location = location;
+                            window.navigate(location);
+                        }
+                    });
+                });
+            }
+        });
+    </script>
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+</head>
+<body>
+
+<h1>hello~Sam</h1>
+<div class="col-lg-12 col-sm-12" style="margin: 12px auto 10px;">
+    <div class="form-group text-center">
+        <h2>你使用的网络类型是: <span id="networkType"></span></h2>
+    </div>
+    <div class="form-group text-center">
+        <button id="record" type="button" class="btn btn-primary btn-hight"><h2>开始录音</h2></button>
+    </div>
+
+    <div class="form-group text-center">
+        <button id="stoprecord" type="button" class="btn btn-warning btn-hight"><h2>停止录音</h2></button>
+    </div>
+
+    <div class="form-group text-center">
+        <button id="playrecord" type="button" class="btn btn-primary btn-hight"><h2>播放录音</h2></button>
+    </div>
+
+    <div class="form-group text-center">
+        <button id="pauserecord" type="button" class="btn btn-success btn-hight"><h2>暂停播放</h2></button>
+    </div>
+
+    <div class="form-group text-center">
+        <button id="uploadrecord" type="button" class="btn btn-danger btn-hight"><h2>上传录音</h2></button>
+    </div>
+
+    <div class="form-group text-center">
+        <button id="downloadrecord" type="button" class="btn btn-info btn-hight"><h2>下载录音</h2></button>
+    </div>
+</div>
+</body>
+</html>
