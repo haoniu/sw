@@ -306,6 +306,186 @@ class WxBaseController extends BaseController
     }
 
 
+
+
+
+
+
+
+
+
+
+    /**
+     * 将xml转为array,不分析XML属性等数据
+     *
+     * @param $xml
+     *
+     * @return mixed
+     * @throws \Exception
+     */
+    public function xmlToArray( $xml ) {
+        if ( ! $xml ) {
+            throw new \Exception( "xml数据异常！" );
+        }
+        //将XML转为array
+        //禁止引用外部xml实体
+        libxml_disable_entity_loader( true );
+
+        return json_decode( json_encode( simplexml_load_string( $xml, 'SimpleXMLElement', LIBXML_NOCDATA ) ), true );
+    }
+
+    /**
+     * 生成xml字符,不能分析复杂的XML数据比如有属性的XML
+     *
+     * @param $data
+     * @param int $level
+     *
+     * @return string
+     * @throws \Exception
+     */
+    public function arrayToXml( $data, $level = 0 ) {
+        if ( ! is_array( $data )
+            || count( $data ) <= 0
+        ) {
+            throw new \Exception( "数组数据异常！" );
+        }
+        if ( $level == 0 ) {
+            $xml = "<xml>";
+        }
+        foreach ( $data as $key => $val ) {
+            if ( is_array( $val ) ) {
+                $xml .= "<" . $key . ">" . $this->toSimpleXml( $val, 1 ) . "</" . $key . ">";
+            } else if ( is_numeric( $val ) ) {
+                $xml .= "<" . $key . ">" . $val . "</" . $key . ">";
+            } else {
+                $xml .= "<" . $key . "><![CDATA[" . $val . "]]></" . $key . ">";
+            }
+        }
+        if ( $level == 0 ) {
+            $xml .= "</xml>";
+        }
+
+        return $xml;
+    }
+
+
+
+
+
+
+
+    //统一下单
+    protected function hnunifiedorder( $data ) {
+        $data['appid']      = $this->appid;
+        $data['mch_id']     = $this->MCHID;
+        $data['nonce_str']  = $this->getRandStr( 16 );
+        $data['trade_type'] = 'JSAPI';
+        //$data['sign']       = $this->makeSign( $data );
+        $xml                = $this->arrayToXml( $data );
+        $res                = $this->curl( "https://api.mch.weixin.qq.com/pay/unifiedorder", $xml );
+
+        return $this->xmlToArray( $res );
+    }
+
+
+
+    //生成签名,支付或红包等使用
+    public function makeSign( $data ) {
+        //签名步骤一：按字典序排序参数
+        ksort( $data );
+        $string = $this->ToUrlParams( $data );
+        //签名步骤二：在string后加入KEY
+        $string = $string . "&key=" . $this->KEY;
+        //签名步骤三：MD5加密
+        $string = md5( $string );
+        //签名步骤四：所有字符转为大写
+        $result = strtoupper( $string );
+
+        return $result;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/**------------------------------------------------------------------------------------------------------------------**/
+
+
+
+
     /**
      *
      * 通过code从工作平台获取openid机器access_token
@@ -393,50 +573,50 @@ class WxBaseController extends BaseController
      * @throws WxPayException
      * @return 成功时返回，其他抛异常
      */
-    public static function unifiedOrder($inputObj, $timeOut = 6)
-    {
-        $url = "https://api.mch.weixin.qq.com/pay/unifiedorder";
-        //检测必填参数
-        if(!$inputObj->IsOut_trade_noSet()) {
-            throw new WxPayException("缺少统一支付接口必填参数out_trade_no！");
-        }else if(!$inputObj->IsBodySet()){
-            throw new WxPayException("缺少统一支付接口必填参数body！");
-        }else if(!$inputObj->IsTotal_feeSet()) {
-            throw new WxPayException("缺少统一支付接口必填参数total_fee！");
-        }else if(!$inputObj->IsTrade_typeSet()) {
-            throw new WxPayException("缺少统一支付接口必填参数trade_type！");
-        }
-
-        //关联参数
-        if($inputObj->GetTrade_type() == "JSAPI" && !$inputObj->IsOpenidSet()){
-            throw new WxPayException("统一支付接口中，缺少必填参数openid！trade_type为JSAPI时，openid为必填参数！");
-        }
-        if($inputObj->GetTrade_type() == "NATIVE" && !$inputObj->IsProduct_idSet()){
-            throw new WxPayException("统一支付接口中，缺少必填参数product_id！trade_type为JSAPI时，product_id为必填参数！");
-        }
-
-        //异步通知url未设置，则使用配置文件中的url
-//        if(!$inputObj->IsNotify_urlSet()){
-//            $inputObj->SetNotify_url(WxPayConfig::NOTIFY_URL);//异步通知url
+//    public static function unifiedOrder($inputObj, $timeOut = 6)
+//    {
+//        $url = "https://api.mch.weixin.qq.com/pay/unifiedorder";
+//        //检测必填参数
+//        if(!$inputObj->IsOut_trade_noSet()) {
+//            throw new WxPayException("缺少统一支付接口必填参数out_trade_no！");
+//        }else if(!$inputObj->IsBodySet()){
+//            throw new WxPayException("缺少统一支付接口必填参数body！");
+//        }else if(!$inputObj->IsTotal_feeSet()) {
+//            throw new WxPayException("缺少统一支付接口必填参数total_fee！");
+//        }else if(!$inputObj->IsTrade_typeSet()) {
+//            throw new WxPayException("缺少统一支付接口必填参数trade_type！");
 //        }
-
-        $inputObj->SetAppid(self::appid);//公众账号ID
-        $inputObj->SetMch_id(self::MCHID);//商户号
-        $inputObj->SetSpbill_create_ip($_SERVER['REMOTE_ADDR']);//终端ip
-        //$inputObj->SetSpbill_create_ip("1.1.1.1");
-        $inputObj->SetNonce_str(self::getRandStr());//随机字符串
-
-        //签名
-        $inputObj->SetSign();
-        $xml = $inputObj->ToXml();
-
-        $startTimeStamp = self::getMillisecond();//请求开始时间
-        $response = self::postXmlCurl($xml, $url, false, $timeOut);
-        $result = WxPayResults::Init($response);
-        self::reportCostTime($url, $startTimeStamp, $result);//上报请求花费时间
-
-        return $result;
-    }
+//
+//        //关联参数
+//        if($inputObj->GetTrade_type() == "JSAPI" && !$inputObj->IsOpenidSet()){
+//            throw new WxPayException("统一支付接口中，缺少必填参数openid！trade_type为JSAPI时，openid为必填参数！");
+//        }
+//        if($inputObj->GetTrade_type() == "NATIVE" && !$inputObj->IsProduct_idSet()){
+//            throw new WxPayException("统一支付接口中，缺少必填参数product_id！trade_type为JSAPI时，product_id为必填参数！");
+//        }
+//
+//        //异步通知url未设置，则使用配置文件中的url
+////        if(!$inputObj->IsNotify_urlSet()){
+////            $inputObj->SetNotify_url(WxPayConfig::NOTIFY_URL);//异步通知url
+////        }
+//
+//        $inputObj->SetAppid(self::appid);//公众账号ID
+//        $inputObj->SetMch_id(self::MCHID);//商户号
+//        $inputObj->SetSpbill_create_ip($_SERVER['REMOTE_ADDR']);//终端ip
+//        //$inputObj->SetSpbill_create_ip("1.1.1.1");
+//        $inputObj->SetNonce_str(self::getRandStr());//随机字符串
+//
+//        //签名
+//        $inputObj->SetSign();
+//        $xml = $inputObj->ToXml();
+//
+//        $startTimeStamp = self::getMillisecond();//请求开始时间
+//        $response = self::postXmlCurl($xml, $url, false, $timeOut);
+//        $result = WxPayResults::Init($response);
+//        self::reportCostTime($url, $startTimeStamp, $result);//上报请求花费时间
+//
+//        return $result;
+//    }
 
 
 
