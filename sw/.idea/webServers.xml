@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="5dabf7a5-f670-4ec0-b720-92ad322a8d5e" name="MyQHost" url="http://123.206.56.241">
+        <fileTransfer host="123.206.56.241" port="22" rootFolder="/home/wwwroot/dashan.haoniube.com/sw" accessType="SFTP">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" />
+          </advancedOptions>
+          <option name="port" value="22" />
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>

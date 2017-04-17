@@ -72,7 +72,7 @@ class IndexController extends TopController
         $input->SetNotify_url("http://paysdk.weixin.qq.com/example/notify.php");
         $input->SetOpenid($openId);
 
-        $order = $this->hnunifiedOrder($input);
+        $order = $this->unifiedOrder($input);
 
         var_dump($order);
 
