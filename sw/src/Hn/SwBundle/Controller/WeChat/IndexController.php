@@ -73,7 +73,7 @@ class IndexController extends TopController
         $input->SetBody("test");
         $input->SetAttach("test");
         $input->SetOut_trade_no($this->MCHID.date("YmdHis"));
-        $input->SetTotal_fee("1");
+        $input->SetTotal_fee("0.01");
         $input->SetTime_start(date("YmdHis"));
         $input->SetTime_expire(date("YmdHis", time() + 600));
         $input->SetGoods_tag("test");
@@ -116,7 +116,8 @@ class IndexController extends TopController
     public function ajaxUploadRecordAction(Request $request)
     {
         $media_id = $request->get('media_id');
-        $data = $this->wxDownloadMedia($media_id,'kkk');
+        $name = time();
+        $data = $this->wxDownloadMedia($media_id,'./wx/voice/'.$name.'.amr');
         return $this->json($data);
     }
 }

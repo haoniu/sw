@@ -140,8 +140,8 @@ class WxBaseController extends BaseController
             9001036 => '查询起始值begin不合法',
         ];
 
-    protected $MCHID = '1900009851';
-    protected $KEY = '8934e7d15453e97507ef794cf7b0519d';
+    protected $MCHID = '1450857602';
+    protected $KEY = 'sz731bxq8a92wwz2fwrq01d5kjxkx2cu';
 
     protected $appid = 'wx76728b0230778ea4';
     protected $appsecret = '9661b4bfb77880d71b49f6a26fab8155';
