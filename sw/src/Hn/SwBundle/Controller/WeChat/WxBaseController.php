@@ -541,7 +541,14 @@ class WxBaseController extends BaseController
 
 
 
+    public function wxDownloadMedia( $media_id, $file ) {
+        $url    = "http://file.api.weixin.qq.com/cgi-bin/media/get?access_token={$this->getAccessToken()}&media_id=$media_id";
+        $result = $this->curl( $url );
+        $dir    = dirname( $file );
+        is_dir( $dir ) || mkdir( $dir, 0755, true );
 
+        return file_put_contents( $file, $result );
+    }
 
 
 

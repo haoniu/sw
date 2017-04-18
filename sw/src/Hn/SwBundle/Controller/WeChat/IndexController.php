@@ -3,6 +3,7 @@
 namespace Hn\SwBundle\Controller\WeChat;
 
 use Hn\SwBundle\Controller\WeChat\WxBaseController as TopController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Hn\SwBundle\Controller\WeChat\WxPayUnifiedOrder;
@@ -38,15 +39,21 @@ class IndexController extends TopController
         $jsonmenu = '{
             "button":[
                 {
-                    "name":"跳转",
+                    "name":"大山公众号",
                     "sub_button":[
                         {
                             "type":"view",
-                            "name":"我的商城",
+                            "name":"我的首页",
                             "url":"http://dashan.haoniube.com/wx"
+                        },
+                        {
+                            "type":"view",
+                            "name":"录音测试",
+                            "url":"http://dashan.haoniube.com/wx/record"
                         }
                     ]
                 },
+                
             ]
         }';
         $url     = $this->apiUrl . '/cgi-bin/menu/create?access_token=' . $this->getAccessToken();
@@ -94,17 +101,22 @@ class IndexController extends TopController
     }
 
 
-    public function recordAction()
+    public function recordAction(Request $request)
     {
 
-        $url = 'http://dashan.haoniube.com/wx/record';
-
-        $jsData = $this->getJsSign($url);
+        $jsData = $this->getJsSign($request->getUri());
 
 
 
         return $this->render('HnSwBundle:WeChat/index:record.html.twig',array(
             'jsData' => $jsData
         ));
+    }
+
+    public function ajaxUploadRecordAction(Request $request)
+    {
+        $media_id = $request->get('media_id');
+        $data = $this->wxDownloadMedia($media_id,'kkk');
+        return $this->json($data);
     }
 }

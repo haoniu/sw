@@ -3,6 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <script type="text/javascript">
+        window.jQuery || document.write("<script src='{{asset('SwAsset/Lib/AmazeUI')}}/js/jquery.min.js'>"+"<"+"/script>");
+    </script>
     <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
     <script>
         wx.config({
@@ -57,7 +60,8 @@
             wx.onVoiceRecordEnd({
                 complete: function (res) {
                     record.localId = res.localId;
-                    $("#record h2").html('开始录音');
+                    alert('录音时间已超过一分钟');
+                    $("#record h2").html('录音结束');
                 }
             });
 
@@ -67,6 +71,8 @@
                     alert('播放完毕');
                 }
             });
+
+
 
             document.querySelector('#playrecord').onclick = function() {
                 if(record.localId == '') {
@@ -88,7 +94,7 @@
                     isShowProgressTips: 1,
                     success: function (res) {
                         record.serverId = res.serverId;
-                        $.getJSON('http://www.demo.com/tp/home/index/sendrecord',{openid:'oHdUGj7hZfJfr4ILMB5rgctpNrOw', media_id:record.serverId}, function(data) {
+                        $.getJSON('{{ path('hn_sw_wechat_ajax_record') }}',{media_id:record.serverId}, function(data) {
                             if(data)
                                 alert('发送成功');
                         });

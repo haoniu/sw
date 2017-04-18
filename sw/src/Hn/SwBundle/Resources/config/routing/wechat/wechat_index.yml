@@ -19,4 +19,6 @@ hn_sw_wechat_record:
     path:     /record
     defaults: { _controller: HnSwBundle:WeChat/Index:record }
 
-
+hn_sw_wechat_ajax_record:
+    path:     /ajax/record
+    defaults: { _controller: HnSwBundle:WeChat/Index:ajaxUploadRecord }
