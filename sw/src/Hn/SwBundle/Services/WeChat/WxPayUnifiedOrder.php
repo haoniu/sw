@@ -1,5 +1,7 @@
 <?php
-namespace Hn\SwBundle\Controller\WeChat;
+namespace Hn\SwBundle\Services\WeChat;
+
+
 /**
  *
  * 统一下单输入对象

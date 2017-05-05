@@ -1,6 +1,7 @@
 <?php
 
-namespace Hn\SwBundle\Controller\WeChat;
+namespace Hn\SwBundle\Services\WeChat;
+
 /**
  *
  * 数据对象基础类，该类中定义数据类最基本的行为，包括：

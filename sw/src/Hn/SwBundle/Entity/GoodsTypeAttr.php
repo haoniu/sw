@@ -9,6 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Table(name="goods_type_attr")
  * @ORM\Entity(repositoryClass="Hn\SwBundle\Repository\GoodsTypeAttrRepository")
+ * @ORM\HasLifecycleCallbacks()
  */
 class GoodsTypeAttr
 {

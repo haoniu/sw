@@ -50,6 +50,11 @@ class IndexController extends TopController
                             "type":"view",
                             "name":"录音测试",
                             "url":"http://dashan.haoniube.com/wx/record"
+                        },
+                        {
+                            "type":"view",
+                            "name":"支付测试",
+                            "url":"http://dashan.haoniube.com/wx/pay"
                         }
                     ]
                 },

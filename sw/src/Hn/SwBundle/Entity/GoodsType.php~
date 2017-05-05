@@ -9,6 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Table(name="goods_type")
  * @ORM\Entity(repositoryClass="Hn\SwBundle\Repository\GoodsTypeRepository")
+ * @ORM\HasLifecycleCallbacks()
  */
 class GoodsType
 {
@@ -47,6 +48,11 @@ class GoodsType
      * @ORM\Column(name="sort", type="integer", nullable=true,options={"comment":"排序"})
      */
     private $sort = '100';
+
+    /**
+     * @ORM\OneToOne(targetEntity="GoodsCategory",mappedBy="goodsType")
+     */
+    private $goodsCategory;
 
     /**
      * @var integer
@@ -158,5 +164,29 @@ class GoodsType
     public function getSort()
     {
         return $this->sort;
+    }
+
+    /**
+     * Set state
+     *
+     * @param integer $state
+     *
+     * @return GoodsType
+     */
+    public function setState($state)
+    {
+        $this->state = $state;
+
+        return $this;
+    }
+
+    /**
+     * Get state
+     *
+     * @return integer
+     */
+    public function getState()
+    {
+        return $this->state;
     }
 }

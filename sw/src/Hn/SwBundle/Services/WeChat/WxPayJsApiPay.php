@@ -1,5 +1,6 @@
 <?php
-namespace Hn\SwBundle\Controller\WeChat;
+namespace Hn\SwBundle\Services\WeChat;
+
 
 class WxPayJsApiPay extends WxPayDataBase
 {

@@ -533,7 +533,7 @@ class WxBaseController extends BaseController
 
         //$res = WxBaseController::curl( "https://api.mch.weixin.qq.com/pay/unifiedorder", $xml );
 
-        return WxBaseController::xmlToArray( $xml );
+        return $xml ;
     }
 
 
@@ -549,73 +549,6 @@ class WxBaseController extends BaseController
 
         return file_put_contents( $file, $result );
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    public function getMCHID()
-    {
-        return $this->MCHID;
-    }
-
-
-
-
-
-
-
-
-
-
 
 
 

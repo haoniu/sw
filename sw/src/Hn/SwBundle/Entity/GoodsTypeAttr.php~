@@ -9,6 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Table(name="goods_type_attr")
  * @ORM\Entity(repositoryClass="Hn\SwBundle\Repository\GoodsTypeAttrRepository")
+ * @ORM\HasLifecycleCallbacks()
  */
 class GoodsTypeAttr
 {
@@ -220,5 +221,29 @@ class GoodsTypeAttr
     public function getValue()
     {
         return $this->value;
+    }
+
+    /**
+     * Set state
+     *
+     * @param integer $state
+     *
+     * @return GoodsTypeAttr
+     */
+    public function setState($state)
+    {
+        $this->state = $state;
+
+        return $this;
+    }
+
+    /**
+     * Get state
+     *
+     * @return integer
+     */
+    public function getState()
+    {
+        return $this->state;
     }
 }

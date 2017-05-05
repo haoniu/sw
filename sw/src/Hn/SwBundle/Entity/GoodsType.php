@@ -9,6 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Table(name="goods_type")
  * @ORM\Entity(repositoryClass="Hn\SwBundle\Repository\GoodsTypeRepository")
+ * @ORM\HasLifecycleCallbacks()
  */
 class GoodsType
 {
@@ -47,6 +48,11 @@ class GoodsType
      * @ORM\Column(name="sort", type="integer", nullable=true,options={"comment":"排序"})
      */
     private $sort = '100';
+
+    /**
+     * @ORM\OneToOne(targetEntity="GoodsCategory",mappedBy="goodsType")
+     */
+    private $goodsCategory;
 
     /**
      * @var integer
@@ -182,5 +188,29 @@ class GoodsType
     public function getState()
     {
         return $this->state;
+    }
+
+    /**
+     * Set goodsCategory
+     *
+     * @param \Hn\SwBundle\Entity\GoodsCategory $goodsCategory
+     *
+     * @return GoodsType
+     */
+    public function setGoodsCategory(\Hn\SwBundle\Entity\GoodsCategory $goodsCategory = null)
+    {
+        $this->goodsCategory = $goodsCategory;
+
+        return $this;
+    }
+
+    /**
+     * Get goodsCategory
+     *
+     * @return \Hn\SwBundle\Entity\GoodsCategory
+     */
+    public function getGoodsCategory()
+    {
+        return $this->goodsCategory;
     }
 }

@@ -1,5 +1,7 @@
 <?php
-namespace Hn\SwBundle\Controller\WeChat;
+namespace Hn\SwBundle\Services\WeChat;
+
+
 /**
  *
  * 接口调用结果类
