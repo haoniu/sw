@@ -1,0 +1,2 @@
+2017-05-10 17:33:52  {"productCode":"QUICK_WAP_PAY","body":"测试商品","subject":"da","out_trade_no":"AHN123456","total_amount":0.01,"timeout_express":"1m"}
+2017-05-10 17:34:09  {"productCode":"QUICK_WAP_PAY","body":"测试商品","subject":"da","out_trade_no":"AHN123456","total_amount":0.01,"timeout_express":"1m"}

@@ -1,4 +1,6 @@
 services:
-#    hn_sw.example:
-#        class: Hn\SwBundle\Example
-#        arguments: ["@service_id", "plain_value", "%parameter%"]
+    tree_data:
+        class: Hn\SwBundle\Services\Tool\DataTree
+
+    ali_pay:
+        class: Hn\SwBundle\Services\AliPay\HnPay
