@@ -6,8 +6,8 @@ use Doctrine\ODM\MongoDB\Mapping\Driver\AnnotationDriver;
 
 /** @var ClassLoader $loader */
 $loader = require __DIR__.'/../vendor/autoload.php';
-$loader->add('AliPayRequest', realpath(__DIR__.'/../src/Hn/SwBundle/Services/AliPay/AliPayRequest'));
-$loader->add('AliPayWapPatModel', realpath(__DIR__.'/../src/Hn/SwBundle/Services/AliPay/WapPayModel'));
+//$loader->add('AliPayRequest', realpath(__DIR__.'/../src/Hn/SwBundle/Services/AliPay/AliPayRequest'));
+//$loader->add('AliPayWapPatModel', realpath(__DIR__.'/../src/Hn/SwBundle/Services/AliPay/WapPayModel'));
 
 AnnotationRegistry::registerLoader([$loader, 'loadClass']);
 

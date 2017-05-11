@@ -15,4 +15,6 @@ hn_sw_test_alipay:
     path:     /alipay
     defaults: { _controller: HnSwBundle:Test:aliPay }
 
-
+hn_sw_test_notify:
+    path:     /alipay/notify.{_format}
+    defaults: { _controller: HnSwBundle:Test:notify, _format: php }

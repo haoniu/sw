@@ -11,10 +11,9 @@ use Hn\SwBundle\Services\AliPay\AliPayRequest\AlipayTradeCloseRequest;
 use Hn\SwBundle\Services\AliPay\AliPayRequest\AlipayTradeRefundRequest;
 use Hn\SwBundle\Services\AliPay\AliPayRequest\AlipayTradeWapPayRequest;
 use Hn\SwBundle\Services\AliPay\AliPayRequest\AlipayTradeQueryRequest;
+use Hn\SwBundle\Services\AliPay\AliPayRequest\AlipayTradePagePayRequest;
 use Hn\SwBundle\Services\AliPay\AopClient;
 
-//require_once dirname ( __FILE__ ).DIRECTORY_SEPARATOR.'./../../AopSdk.php';
-require dirname ( __FILE__ ).DIRECTORY_SEPARATOR.'./config.php';
 
 class AlipayTradeService {
 
@@ -82,9 +81,10 @@ class AlipayTradeService {
 		$biz_content=$builder->getBizContent();
 		//打印业务参数
 		$this->writeLog($biz_content);
-	
+
 		$request = new AlipayTradeWapPayRequest();
-	
+		//$request = new AlipayTradePagePayRequest();
+
 		$request->setNotifyUrl($notify_url);
 		$request->setReturnUrl($return_url);
 		$request->setBizContent ( $biz_content );

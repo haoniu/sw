@@ -8,7 +8,7 @@ namespace Hn\SwBundle\Services\AliPay\AliPayRequest;
  */
 class AlipayTradeWapPayRequest
 {
-	/** 
+	/**
 	 * 手机网站支付接口2.0
 	 **/
 	private $bizContent;
@@ -22,7 +22,7 @@ class AlipayTradeWapPayRequest
 	private $returnUrl;
     private $needEncrypt=false;
 
-	
+
 	public function setBizContent($bizContent)
 	{
 		$this->bizContent = $bizContent;
