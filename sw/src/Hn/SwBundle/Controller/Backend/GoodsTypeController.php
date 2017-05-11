@@ -15,7 +15,9 @@ class GoodsTypeController extends BaseController
     public function indexAction()
     {
         $allData = $this->getGoodsTypeRepository()->findAll();
-
+//        $serializer = $this->get('jms_serializer');
+//        $data = $serializer->serialize($allData, 'json');
+//        dump($data);exit();
         return $this->render('HnSwBundle:Backend/type:index.html.twig',array(
             'gtype' => $allData
         ));
