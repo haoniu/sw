@@ -13,7 +13,7 @@ class HnPay
         $config = Loader\ConfigLoader::load('ali');
 
         //商户订单号，商户网站订单系统中唯一订单号，必填
-        $out_trade_no = 'AHN123456';
+        $out_trade_no = 'AHN12345678';
 
         //订单名称，必填
         $subject = 'da';
