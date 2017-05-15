@@ -1,5 +1,5 @@
 <?php
-namespace Hn\SwBundle\Services\WeChat;
+namespace Hn\SwBundle\Services\WeChat\WxPay;
 
 
 /**

@@ -14,8 +14,8 @@ class IndexController extends TopController
 
     public function indexAction()
     {
-        $this->bootstrap();
-        echo $this->access_token;
+        //$this->bootstrap();
+        //echo $this->access_token;
         return $this->render('HnSwBundle:WeChat/index:index.html.twig');
     }
 
@@ -26,7 +26,7 @@ class IndexController extends TopController
     public function checkAction()
     {
         //执行微信服务器验证
-        $valid = $this->valid();
+        $valid = $this->get('sw_wechat')->valid();
         return new Response($valid);
     }
 

@@ -4,3 +4,7 @@ services:
 
     ali_pay:
         class: Hn\SwBundle\Services\AliPay\HnPay
+
+    sw_wechat:
+        class: Hn\SwBundle\Services\WeChat\SwWeChat
+        arguments: ['@service_container']

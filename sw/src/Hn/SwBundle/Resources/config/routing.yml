@@ -10,6 +10,9 @@ hn_sw_wechat_all:
 
 
 
+hn_sw_test_main:
+    path:     /test
+    defaults: { _controller: HnSwBundle:Test:test }
 
 hn_sw_test_alipay:
     path:     /alipay

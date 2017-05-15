@@ -15,6 +15,12 @@ class TestController extends Controller
         return $this->render('', array('name' => $name));
     }
 
+    public function testAction()
+    {
+        $this->get('sw_wechat')->test();
+    }
+
+
     public function aliPayAction(Request $request)
     {
 
