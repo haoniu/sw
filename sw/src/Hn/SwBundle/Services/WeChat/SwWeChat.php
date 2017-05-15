@@ -35,6 +35,7 @@ class SwWeChat
 
         $this->appid        = $WeChatConfig['appid'];
         $this->appsecret    = $WeChatConfig['appsecret'];
+        $this->token        = $WeChatConfig['token'];
 
         $this->access_token = $this->getAccessToken();          //获取access_token
         $this->message = $this->parsePostRequestData();         //处理 微信服务器 发来的数据
