@@ -3,6 +3,7 @@
 namespace Hn\SwBundle\Controller\WeChat;
 
 use Hn\SwBundle\Controller\WeChat\WxBaseController as TopController;
+use Hn\SwBundle\Entity\WxArticle;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -125,4 +126,39 @@ class IndexController extends TopController
         $data = $this->wxDownloadMedia($media_id,'./wx/voice/'.$name.'.amr');
         return $this->json($data);
     }
+
+    public function getNewsAction()
+    {
+        $param = [
+            //素材的类型，图片（image）、视频（video）、语音 （voice）、图文（news）
+            "type"   => 'news',
+            //从全部素材的该偏移位置开始返回，0表示从第一个素材 返回
+            "offset" => 0,
+            //返回素材的数量，取值在1到20之间
+            "count"  => 20
+        ];
+        $ddd = array();
+        $valid = $this->get('sw_wechat')->lists($param);
+        $em = $this->em();
+//        foreach ($valid['item'] as $key => $value){
+//            foreach ($value['content']['news_item'] as $k=>$v){
+////                $wxArticle = new WxArticle();
+////                $wxArticle->setTitle($v['title']);
+////                $wxArticle->setAuthor($v['author']);
+////                $wxArticle->setDigest($v['digest']);
+////                $wxArticle->setContent($v['content']);
+////                $wxArticle->setUrl(rtrim($v['url'],"#rd"));
+////                $wxArticle->setMediaId($value['media_id']);
+////                $em->persist($wxArticle);
+//
+//            }
+////            $em->flush();
+//        }
+        dump($valid);exit();
+        $articleData = $this->getWxArticleRepository()->findAll();
+        return $this->render('HnSwBundle:WeChat/index:article.html.twig',array(
+            'article' => $articleData
+        ));
+    }
+
 }

@@ -46,4 +46,8 @@ class BaseController extends Controller
     {
         return $this->em()->getRepository('HnSwBundle:GoodsCategory');
     }
+    public function getWxArticleRepository()
+    {
+        return $this->em()->getRepository('HnSwBundle:WxArticle');
+    }
 }

@@ -11,6 +11,10 @@ hn_sw_wechat_menu:
     defaults: { _controller: HnSwBundle:WeChat/Index:createWxMenu }
 
 
+hn_sw_wechat_getNews:
+    path:     /getNews
+    defaults: { _controller: HnSwBundle:WeChat/Index:getNews }
+
 hn_sw_wechat_pay:
     path:     /pay
     defaults: { _controller: HnSwBundle:WeChat/Index:pay }

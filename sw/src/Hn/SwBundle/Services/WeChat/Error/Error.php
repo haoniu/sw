@@ -141,7 +141,7 @@ class Error {
         ];
 
     //根据微信服务器返回信息，验证是否发生错误，如果有错误，根据errcode值返回具体错误内容
-    public function get( $data ) {
+    public function getData( $data ) {
         $data = json_decode( $data, true );
         if ( ! is_array( $data ) || ! array_key_exists( 'errcode', $data ) ) {
             return $data;

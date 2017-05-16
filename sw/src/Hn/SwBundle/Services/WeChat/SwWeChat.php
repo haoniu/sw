@@ -3,8 +3,9 @@
 namespace Hn\SwBundle\Services\WeChat;
 
 use Symfony\Component\Cache\Adapter\FilesystemAdapter;
+use Hn\SwBundle\Services\WeChat\Error\Error;
 
-class SwWeChat
+class SwWeChat extends Error
 {
     private $container;
 
@@ -303,7 +304,48 @@ class SwWeChat
         curl_close( $ch );
 
         return $data;
+    }
 
+    //获取素材列表
+    public function lists( $param ) {
+        $url     = $this->apiUrl . "/cgi-bin/material/batchget_material?access_token={$this->access_token}";
+        $content = $this->curl( $url, json_encode( $param, JSON_UNESCAPED_UNICODE ) );
+
+        return $this->getData( $content );
+    }
+
+    public function createWxMenu()
+    {
+        $jsonmenu = '{
+            "button":[
+                {
+                    "name":"大山公众号",
+                    "sub_button":[
+                        {
+                            "type":"view",
+                            "name":"我的首页",
+                            "url":"http://dashan.haoniube.com/wx"
+                        },
+                        {
+                            "type":"view",
+                            "name":"录音测试",
+                            "url":"http://dashan.haoniube.com/wx/record"
+                        },
+                        {
+                            "type":"view",
+                            "name":"支付测试",
+                            "url":"http://dashan.haoniube.com/wx/pay"
+                        }
+                    ]
+                },
+                
+            ]
+        }';
+        $url     = $this->apiUrl . '/cgi-bin/menu/create?access_token=' . $this->access_token;
+        $content = $this->curl( $url, $jsonmenu );
+
+        $finlData = $this->getData($content);
+        return $finlData;
     }
 
 }
