@@ -143,26 +143,7 @@ class SwWeChat extends Error
         }
     }
 
-    /**
-     *
-     * 拼接签名字符串
-     * @param array $urlObj
-     *
-     * @return 返回已经拼接好的字符串
-     */
-    private function ToUrlParams($urlObj)
-    {
-        $buff = "";
-        foreach ($urlObj as $k => $v)
-        {
-            if($k != "sign"){
-                $buff .= $k . "=" . $v . "&";
-            }
-        }
 
-        $buff = trim($buff, "&");
-        return $buff;
-    }
 
     /**
      *
@@ -219,6 +200,115 @@ class SwWeChat extends Error
         return "https://api.weixin.qq.com/sns/oauth2/access_token?".$bizString;
     }
 
+
+
+    //获取素材列表
+    public function lists( $param ) {
+        $url     = $this->apiUrl . "/cgi-bin/material/batchget_material?access_token={$this->access_token}";
+        $content = $this->curl( $url, json_encode( $param, JSON_UNESCAPED_UNICODE ) );
+
+        return $this->getData( $content );
+    }
+
+    public function createWxMenu()
+    {
+        $jsonmenu = '{
+            "button":[
+                {
+                    "name":"大山公众号",
+                    "sub_button":[
+                        {
+                            "type":"view",
+                            "name":"我的首页",
+                            "url":"http://dashan.haoniube.com/wx"
+                        },
+                        {
+                            "type":"view",
+                            "name":"录音测试",
+                            "url":"http://dashan.haoniube.com/wx/record"
+                        },
+                        {
+                            "type":"view",
+                            "name":"支付测试",
+                            "url":"http://dashan.haoniube.com/wx/pay"
+                        }
+                    ]
+                },
+                
+            ]
+        }';
+        $url     = $this->apiUrl . '/cgi-bin/menu/create?access_token=' . $this->access_token;
+        $content = $this->curl( $url, $jsonmenu );
+
+        $finlData = $this->getData($content);
+        return $finlData;
+    }
+
+    /**
+     * 获得jsapi_ticket
+     * 文档地址：https://mp.weixin.qq.com/wiki/7/aaa137b55fb2e0456bf8dd9148dd613f.html#.E9.99.84.E5.BD.951-JS-SDK.E4.BD.BF.E7.94.A8.E6.9D.83.E9.99.90.E7.AD.BE.E5.90.8D.E7.AE.97.E6.B3.95
+     * @return mixed|string
+     */
+    public function getJsTicket()
+    {
+        $cache = new FilesystemAdapter();
+
+        // 取出缓存元素
+        $wxTicket = $cache->getItem('wx.jsTicket');
+        if (!$wxTicket->isHit()) {
+            //元素在缓存中不存在，请求的api地址是：https://api.weixin.qq.com/cgi-bin/ticket/getticket?access_token=ACCESS_TOKEN&type=jsapi
+            $url  = $this->apiUrl . '/cgi-bin/ticket/getticket?access_token=' . $this->getAccessToken() . '&type=jsapi';
+
+            $data = $this->curl( $url );
+            $data = json_decode( $data, true );
+            //获取失败
+            if ( $data['errcode'] != 0 ) {
+                return '失败';
+            }
+            $wxTicket->set($data['ticket']);
+            $wxTicket->expiresAfter(3600);  //设置缓存时间
+            $cache->save($wxTicket);
+            $ticket = $data['ticket'];
+        }else{
+            $ticket = $wxTicket->get();
+        }
+
+        return $this->js_ticket = $ticket;
+    }
+
+    /**
+     * 获得令牌签名
+     * @param $randstr          随机字符串
+     * @param $time             时间戳
+     * @param $url              url地址
+     * @return string
+     */
+    public function getTicketSign($randstr,$time,$url)
+    {
+        $ticket = $this->getJsTicket();
+        $string1 = 'jsapi_ticket='.$ticket.'&noncestr='.$randstr.'&timestamp='.$time.'&url='.$url;
+        return sha1($string1);
+    }
+
+    /**
+     *  返回js签名数据
+     * @param $url
+     * @return array
+     */
+    public function getJsSign($url)
+    {
+        $jsData = array();
+        $jsData['appid'] = $this->appid;
+        $jsData['timestamp'] = time();
+        $jsData['nonceStr'] = $this->getRandStr(12);
+        $jsData['signature'] = $this->getTicketSign($jsData['nonceStr'],$jsData['timestamp'],$url);
+        return $jsData;
+    }
+
+
+
+
+    /**------------------------------------------工具类--------------------------------------------------------------**/
 
     /**
      * 将xml转为array,不分析XML属性等数据
@@ -306,46 +396,42 @@ class SwWeChat extends Error
         return $data;
     }
 
-    //获取素材列表
-    public function lists( $param ) {
-        $url     = $this->apiUrl . "/cgi-bin/material/batchget_material?access_token={$this->access_token}";
-        $content = $this->curl( $url, json_encode( $param, JSON_UNESCAPED_UNICODE ) );
+    /**
+     *
+     * 拼接签名字符串
+     * @param array $urlObj
+     *
+     * @return 返回已经拼接好的字符串
+     */
+    private function ToUrlParams($urlObj)
+    {
+        $buff = "";
+        foreach ($urlObj as $k => $v)
+        {
+            if($k != "sign"){
+                $buff .= $k . "=" . $v . "&";
+            }
+        }
 
-        return $this->getData( $content );
+        $buff = trim($buff, "&");
+        return $buff;
     }
 
-    public function createWxMenu()
+    /**
+     * 产生随机字符串，不长于32位
+     *
+     * @param int $length       定义产生随机字符串长度
+     * @return string
+     */
+    public function getRandStr( $length = 32 )
     {
-        $jsonmenu = '{
-            "button":[
-                {
-                    "name":"大山公众号",
-                    "sub_button":[
-                        {
-                            "type":"view",
-                            "name":"我的首页",
-                            "url":"http://dashan.haoniube.com/wx"
-                        },
-                        {
-                            "type":"view",
-                            "name":"录音测试",
-                            "url":"http://dashan.haoniube.com/wx/record"
-                        },
-                        {
-                            "type":"view",
-                            "name":"支付测试",
-                            "url":"http://dashan.haoniube.com/wx/pay"
-                        }
-                    ]
-                },
-                
-            ]
-        }';
-        $url     = $this->apiUrl . '/cgi-bin/menu/create?access_token=' . $this->access_token;
-        $content = $this->curl( $url, $jsonmenu );
+        $chars = "abcdefghijklmnopqrstuvwxyz0123456789";
+        $str   = "";
+        for ( $i = 0; $i < $length; $i ++ ) {
+            $str .= substr( $chars, mt_rand( 0, strlen( $chars ) - 1 ), 1 );
+        }
 
-        $finlData = $this->getData($content);
-        return $finlData;
+        return $str;
     }
 
 }

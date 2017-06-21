@@ -110,7 +110,7 @@ class IndexController extends TopController
     public function recordAction(Request $request)
     {
 
-        $jsData = $this->getJsSign($request->getUri());
+        $jsData = $this->get('sw_wechat')->getJsSign($request->getUri());
 
 
 
