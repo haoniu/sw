@@ -136,7 +136,14 @@
             document.querySelector('#getLocation').onclick = function () {
                 wx.getLocation({
                     success: function (res) {
-                        alert(JSON.stringify(res));
+                        wx.openLocation({
+                            latitude: res.latitude,
+                            longitude: res.longitude,
+                            name: '当前地址',
+                            address: '',
+                            scale: 28,
+                            infoUrl: 'http://weixin.qq.com'
+                        });
                     },
                     cancel: function (res) {
                         alert('用户拒绝授权获取地理位置');
