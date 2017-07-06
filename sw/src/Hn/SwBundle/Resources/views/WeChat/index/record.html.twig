@@ -135,6 +135,7 @@
             // 7.2 获取当前地理位置
             document.querySelector('#getLocation').onclick = function () {
                 wx.getLocation({
+                    type:'gcj02',
                     success: function (res) {
                         wx.openLocation({
                             latitude: res.latitude,
