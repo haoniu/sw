@@ -101,3 +101,10 @@ doctrine_mongodb:
     document_managers:
         default:
             auto_mapping: true
+
+snc_redis:
+    clients:
+        default:
+            type: phpredis
+            alias: default
+            dsn: redis://localhost

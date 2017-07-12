@@ -17,7 +17,12 @@ class TestController extends Controller
 
     public function testAction()
     {
-        $this->get('sw_wechat')->test();
+        $redis = $this->get('snc_redis.default');
+        $redis->SET('apple', 'www.apple.com');  //bool(true)
+        $data = $redis->GET('apple');//"www.apple.com"
+        dump($data);exit();
+        //$val = $redis->incr('foo:bar');
+        //$this->get('sw_wechat')->test();
     }
 
 
