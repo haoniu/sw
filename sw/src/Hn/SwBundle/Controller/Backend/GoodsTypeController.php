@@ -12,14 +12,20 @@ use Hn\SwBundle\Entity\GoodsType;
 
 class GoodsTypeController extends BaseController
 {
-    public function indexAction()
+    public function indexAction(Request $request)
     {
         $allData = $this->getGoodsTypeRepository()->findAll();
 //        $serializer = $this->get('jms_serializer');
 //        $data = $serializer->serialize($allData, 'json');
 //        dump($data);exit();
+        $paginator  = $this->get('knp_paginator');
+        $pagination = $paginator->paginate(
+            $allData, /* query NOT result */
+            $request->query->getInt('page', 1)/*page number*/,
+            10/*limit per page*/
+        );
         return $this->render('HnSwBundle:Backend/type:index.html.twig',array(
-            'gtype' => $allData
+            'gtype' => $pagination,
         ));
     }
 
@@ -44,6 +50,12 @@ class GoodsTypeController extends BaseController
         return $this->render('HnSwBundle:Backend/type:new.html.twig',array(
             'form' => $form->createView(),
         ));
+    }
+
+
+    public function editAction(GoodsType $goodsType)
+    {
+
     }
 
     public function propertyAction(Request $request)

@@ -18,6 +18,7 @@
    3. DoctrineMongoDBBundle
    4. JMSSerializerBundle
    5. SncRedisBundle
+   6. KnpPaginatorBundle
 
 
 
@@ -30,6 +31,8 @@
 * 2017-04-18    搞定微信支付，后续会封装一套微信的服务出来
 * 2017-05-10    开始测试、编写支付宝支付
 * 2017-05-15    修正部分微信bug
+* 2017-06-22    微信地图接口测试
+* 2017-07-12    Redis测试安装、引入SncRedisBundle
 
 
 
