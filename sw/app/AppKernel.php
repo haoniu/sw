@@ -21,6 +21,7 @@ class AppKernel extends Kernel
             new Doctrine\Bundle\MongoDBBundle\DoctrineMongoDBBundle(),
             new JMS\SerializerBundle\JMSSerializerBundle(),
             new Snc\RedisBundle\SncRedisBundle(),
+            new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
 
             new Hn\SwBundle\HnSwBundle(),
         ];

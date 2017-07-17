@@ -12,6 +12,12 @@
 
 1. 后台模板使用AmazeUI
 2. 基于Symfony3构建
+3. 用到的第三方Bundle
+   1. StofDoctrineExtensionsBundle
+   2. LiipImagineBundle
+   3. DoctrineMongoDBBundle
+   4. JMSSerializerBundle
+   5. SncRedisBundle
 
 
 
@@ -27,9 +33,8 @@
 
 
 
-PS：
 
-##### 因为工作等原因，本项目一直进行缓慢，欢迎喜欢symfony的朋友一起加入折腾。预计6月把整个业务流程图梳理清楚。
+PS：
 
 
 

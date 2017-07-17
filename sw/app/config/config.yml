@@ -108,3 +108,14 @@ snc_redis:
             type: phpredis
             alias: default
             dsn: redis://localhost
+
+knp_paginator:
+    page_range: 5                                     # 展示有多少个分页条数
+    default_options:
+        page_name: page                               # 页面查询参数名称
+        sort_field_name: sort                         # 排序字段查询参数名称
+        sort_direction_name: direction                # 排序方向查询参数名称
+        distinct: true                                # 确保不同的结果,当ORM使用GROUP BY语句查询是有用的
+    template:
+        pagination: 'KnpPaginatorBundle:Pagination:sliding.html.twig'     # sliding pagination controls template
+        sortable: 'KnpPaginatorBundle:Pagination:sortable_link.html.twig' # sort link template
