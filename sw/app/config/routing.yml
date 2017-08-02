@@ -1,3 +1,7 @@
+hn_user:
+    resource: "@HnUserBundle/Resources/config/routing.yml"
+    prefix:   /
+
 hn_sw:
     resource: "@HnSwBundle/Resources/config/routing.yml"
     prefix:   /
