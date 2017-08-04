@@ -1,0 +1,7 @@
+hn_user_register:
+    path:     /register
+    defaults: { _controller: HnUserBundle:User:register }
+
+hn_user_login:
+    path:     /login
+    defaults: { _controller: HnUserBundle:User:login }

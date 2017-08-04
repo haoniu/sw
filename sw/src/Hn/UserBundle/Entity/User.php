@@ -8,10 +8,11 @@ use Symfony\Component\Security\Core\User\UserInterface;
 /**
  * Users
  *
- * @ORM\Table(name="users")
+ * @ORM\Table(name="user")
  * @ORM\Entity(repositoryClass="Hn\UserBundle\Repository\UserRepository")
+ * @ORM\HasLifecycleCallbacks()
  */
-class Users implements UserInterface
+class User implements UserInterface
 {
     /**
      * @var integer
@@ -249,7 +250,22 @@ class Users implements UserInterface
     }
 
 
+    /**
+     * @ORM\PrePersist
+     */
+    public function PrePersist()
+    {
+        $this->setCreateTime(time());
+        $this->setUpdateTime(time());
+    }
 
+    /**
+     * @ORM\PreUpdate
+     */
+    public function PreUpdate()
+    {
+        $this->setUpdateTime(time());
+    }
 
 
 

@@ -1,3 +1,3 @@
-hn_user_homepage:
-    path:     /
-    defaults: { _controller: HnUserBundle:Default:index }
+hn_user_all:
+    resource: "@HnUserBundle/Resources/config/routing/user.yml"
+    prefix:   /
