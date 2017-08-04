@@ -1,11 +1,23 @@
 # To get started with security, check out the documentation:
 # http://symfony.com/doc/current/security.html
 security:
+    encoders:
+        Hn\UserBundle\Entity\Users:
+            algorithm: bcrypt
 
-    # http://symfony.com/doc/current/security.html#b-configuring-how-users-are-loaded
+        Hn\UserBundle\Entity\BackendUsers:
+            algorithm: bcrypt
+
     providers:
-        in_memory:
-            memory: ~
+        chain_provider:
+            chain:
+                providers: [user_db, backend_user_db]
+
+        user_db:
+            entity: { class: Hn\UserBundle\Entity\Users, property: username }
+
+        backend_user_db:
+            entity: { class: Hn\UserBundle\Entity\BackendUsers, property: username }
 
     firewalls:
         # disables authentication for assets and the profiler, adapt it according to your needs

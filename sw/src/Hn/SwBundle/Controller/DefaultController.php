@@ -12,6 +12,9 @@ class DefaultController extends Controller
 {
     public function indexAction()
     {
+        $manager = $this->get('oneup_acl.manager');
+        $k = $manager->isGranted('ROLE_ADMIN');
+        //dump($k);exit();
         return $this->render('HnSwBundle:Default:index.html.twig');
     }
 

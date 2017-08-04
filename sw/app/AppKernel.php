@@ -22,6 +22,7 @@ class AppKernel extends Kernel
             new JMS\SerializerBundle\JMSSerializerBundle(),
             new Snc\RedisBundle\SncRedisBundle(),
             new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
+            new Oneup\AclBundle\OneupAclBundle(),
 
             new Hn\SwBundle\HnSwBundle(),
             new Hn\UserBundle\HnUserBundle(),
