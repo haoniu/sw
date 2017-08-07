@@ -11,7 +11,7 @@ use Hn\UserBundle\Form\BackendUserType;
 
 class UserController extends Controller
 {
-    public function registerAction(Request $request, $type = 1 )
+    public function registerAction(Request $request, $type = 0 )
     {
         if ( $type ) {
             $user = new BackendUser();
@@ -59,6 +59,11 @@ class UserController extends Controller
                 'error'         => $error,
             )
         );
+    }
+
+    public function logoutAction()
+    {
+
     }
 
 }

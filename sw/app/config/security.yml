@@ -14,10 +14,12 @@ security:
                 providers: [user_db, backend_user_db]
 
         user_db:
-            entity: { class: Hn\UserBundle\Entity\User, property: username }
+            entity:
+                class: Hn\UserBundle\Entity\User
 
         backend_user_db:
-            entity: { class: Hn\UserBundle\Entity\BackendUser, property: username }
+            entity:
+                class: Hn\UserBundle\Entity\BackendUser
 
     firewalls:
         # disables authentication for assets and the profiler, adapt it according to your needs
@@ -38,7 +40,7 @@ security:
                 provider: user_db
                 login_path: /user/login
                 check_path: /user/login
-                default_target_path: /
+                default_target_path: /admin
 
             logout:
                 path:   /user/logout

@@ -208,7 +208,7 @@ class User implements UserInterface
     /**
      * @var string
      *
-     * @ORM\Column(name="roles", type="text", nullable=true)
+     * @ORM\Column(name="roles", type="json_array", nullable=true)
      */
     private $roles;
 
@@ -242,7 +242,7 @@ class User implements UserInterface
 
     public function getRoles()
     {
-        return array('ROLE_USER');
+        return $this->roles;
     }
 
     public function eraseCredentials()

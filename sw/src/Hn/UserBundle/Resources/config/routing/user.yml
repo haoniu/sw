@@ -5,3 +5,7 @@ hn_user_register:
 hn_user_login:
     path:     /login
     defaults: { _controller: HnUserBundle:User:login }
+
+hn_user_logout:
+    path:     /logout
+    defaults: { _controller: HnUserBundle:User:logout }

@@ -8,3 +8,8 @@ services:
     sw_wechat:
         class: Hn\SwBundle\Services\WeChat\SwWeChat
         arguments: ['@service_container']
+
+    sw.request_listener:
+        class: Hn\SwBundle\EventListener\RequestListener
+        tags:
+            - { name: kernel.event_listener, event: kernel.request }
